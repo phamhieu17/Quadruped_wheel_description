@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560" font-family="DejaVu Sans, Arial, sans-serif" font-size="13">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#444"/>
+    </marker>
+    <style>
+      .box  { fill: #ffffff; stroke: #444; stroke-width: 1.3; rx: 6; }
+      .cfg  { fill: #eaf2fb; stroke: #2f6ea8; }
+      .gen  { fill: #f3f3f3; stroke: #777; stroke-dasharray: 5 3; }
+      .sim  { fill: #fdf1e3; stroke: #b86e12; }
+      .use  { fill: #eef7ec; stroke: #3d8a33; }
+      .t    { fill: #222; }
+      .s    { fill: #555; font-size: 11.5px; }
+      .h    { fill: #222; font-weight: bold; font-size: 14px; }
+      .l    { stroke: #444; stroke-width: 1.4; fill: none; marker-end: url(#a); }
+      .ld   { stroke: #444; stroke-width: 1.4; fill: none; marker-end: url(#a); stroke-dasharray: 5 3; }
+    </style>
+  </defs>
+  <rect width="980" height="560" fill="#ffffff"/>
+  <text x="20" y="28" class="h">mq1w_description: where each file goes</text>
+
+  <!-- config -->
+  <rect x="20" y="50" width="250" height="210" class="box cfg"/>
+  <text x="34" y="72" class="h">config/  (every number)</text>
+  <text x="34" y="96" class="t">default_kinematics.yaml</text><text x="34" y="111" class="s">joint origins</text>
+  <text x="34" y="132" class="t">joint_limits.yaml</text><text x="34" y="147" class="s">position ranges</text>
+  <text x="34" y="168" class="t">physical_parameters.yaml</text><text x="34" y="183" class="s">mass, CoM, inertia per link</text>
+  <text x="34" y="204" class="t">visual_parameters.yaml</text><text x="34" y="219" class="s">materials, visual + collision meshes</text>
+  <text x="34" y="240" class="t">actuators.yaml</text><text x="34" y="255" class="s">effort, velocity, armature, friction</text>
+
+  <!-- xacro -->
+  <rect x="330" y="50" width="270" height="150" class="box"/>
+  <text x="344" y="72" class="h">urdf/  (xacro: the assembly)</text>
+  <text x="344" y="96" class="t">mq1w.urdf.xacro</text><text x="344" y="111" class="s">loads config/, calls the macro</text>
+  <text x="344" y="132" class="t">mq1w_macro.xacro</text><text x="344" y="147" class="s">base, sensor frames, four legs</text>
+  <text x="344" y="168" class="t">inc/mq1w_common.xacro</text><text x="344" y="183" class="s">a link / a joint by name</text>
+
+  <rect x="330" y="215" width="270" height="70" class="box"/>
+  <text x="344" y="237" class="t">mq1w_mocked.urdf.xacro</text>
+  <text x="344" y="253" class="s">+ ros2_control_mock_hardware.xacro</text>
+  <text x="344" y="269" class="s">(inc/mq1w_joint_control, _sensors)</text>
+
+  <!-- meshes -->
+  <rect x="20" y="300" width="250" height="110" class="box cfg"/>
+  <text x="34" y="322" class="h">meshes/</text>
+  <text x="34" y="346" class="t">visual/*.stl</text><text x="34" y="361" class="s">the SolidWorks parts</text>
+  <text x="34" y="382" class="t">collision/&lt;link&gt;_&lt;i&gt;.stl</text><text x="34" y="397" class="s">convex pieces (CoACD)</text>
+
+  <rect x="20" y="440" width="250" height="56" class="box gen"/>
+  <text x="34" y="462" class="t">scripts/make_collision_meshes.py</text>
+  <text x="34" y="480" class="s">visual -&gt; collision pieces</text>
+
+  <!-- generated urdf -->
+  <rect x="660" y="44" width="300" height="62" class="box gen"/>
+  <text x="674" y="66" class="t">urdf/mq1w.urdf</text>
+  <text x="674" y="83" class="s">the xacro's output, committed;</text>
+  <text x="674" y="98" class="s">test/ fails when it is stale</text>
+
+  <rect x="660" y="122" width="300" height="66" class="box use"/>
+  <text x="674" y="144" class="t">mq1w_control (build time)</text>
+  <text x="674" y="161" class="s">codegen: kinematics, M/C/G, joint layout</text>
+  <text x="674" y="177" class="s">(+ actuators.yaml) -&gt; controllers, observer</text>
+
+  <rect x="660" y="202" width="300" height="52" class="box use"/>
+  <text x="674" y="224" class="t">robot_state_publisher -&gt; /tf</text>
+  <text x="674" y="241" class="s">RViz (launch/view_mq1w), sim.launch</text>
+
+  <rect x="660" y="268" width="300" height="52" class="box use"/>
+  <text x="674" y="290" class="t">ros2_control_node (mock hardware)</text>
+  <text x="674" y="307" class="s">trying ros2_control; the package test</text>
+
+  <!-- mjcf -->
+  <rect x="330" y="330" width="270" height="110" class="box sim"/>
+  <text x="344" y="352" class="h">mjcf/  (MuJoCo)</text>
+  <text x="344" y="376" class="t">mq1w.xml, scene.xml</text>
+  <text x="344" y="393" class="s">+ actuators, IMU, contact, keyframes,</text>
+  <text x="344" y="409" class="s">solver options; same numbers by hand</text>
+
+  <rect x="660" y="340" width="300" height="66" class="box use"/>
+  <text x="674" y="362" class="t">simulation</text>
+  <text x="674" y="379" class="s">episode_runner, mujoco_node, tests,</text>
+  <text x="674" y="395" class="s">verify-model, RL (mjlab)</text>
+
+  <rect x="660" y="430" width="300" height="66" class="box gen"/>
+  <text x="674" y="452" class="t">scripts/validate_model.py</text>
+  <text x="674" y="469" class="s">URDF = MJCF = actuators.yaml?</text>
+  <text x="674" y="485" class="s">(make verify-model)</text>
+
+  <!-- arrows -->
+  <path d="M270,150 L328,125" class="l"/>
+  <path d="M270,355 C300,300 300,190 328,180" class="l"/>
+  <path d="M270,370 L328,380" class="l"/>
+  <path d="M600,95 L658,78" class="l"/>
+  <path d="M810,106 L810,120" class="l"/>
+  <path d="M600,160 L658,224" class="l"/>
+  <path d="M465,200 L465,213" class="l"/>
+  <text x="472" y="211" class="s">includes</text>
+  <path d="M600,265 L658,292" class="l"/>
+  <path d="M600,385 L658,375" class="l"/>
+  <path d="M145,440 L145,412" class="ld"/>
+  <path d="M600,420 L658,458" class="ld"/>
+  <path d="M960,80 C985,250 985,400 962,455" class="ld"/>
+
+  <text x="20" y="535" class="s">solid: data flow · dashed: generated / checked · blue: edit here · green: who uses it · orange: simulation model</text>
+</svg>

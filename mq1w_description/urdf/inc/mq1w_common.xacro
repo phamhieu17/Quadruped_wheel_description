@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!-- Builders of the mq1w model from its config files, as ur_description's inc/ur_common.xacro:
+       read_model_data   makes the loaded config YAMLs the global properties the builders read
+       model_materials   the materials of visual_parameters.yaml
+       model_link        a link by name: physical_parameters.yaml (inertial), visual_parameters.yaml (visual, collision)
+       model_joint       a joint by name: default_kinematics.yaml (origin), joint_limits.yaml (range),
+                         actuators.yaml (effort, velocity of its kind; damping, friction)
+     No number is written here: every one comes from config/. -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- The arguments are the contents of the files (xacro.load_yaml), not their names: a relative name
+       would be resolved against the file that happens to be processed (see <robot>.urdf.xacro). -->
+  <xacro:macro name="read_model_data" params="package kinematics_parameters joint_limits_parameters
+                                              physical_parameters visual_parameters actuator_parameters">
+    <xacro:property name="description_package" value="${package}" scope="global"/>
+    <xacro:property name="kinematics" value="${kinematics_parameters['kinematics']}" scope="global"/>
+    <xacro:property name="joint_limits" value="${joint_limits_parameters['joint_limits']}" scope="global"/>
+    <xacro:property name="inertia_parameters" value="${physical_parameters['inertia_parameters']}" scope="global"/>
+    <xacro:property name="visual_parameters" value="${visual_parameters}" scope="global"/>
+    <xacro:property name="actuators" value="${actuator_parameters}" scope="global"/>
+  </xacro:macro>
+
+  <!-- items: list of (name, rgba) -->
+  <xacro:macro name="model_materials" params="items">
+    <xacro:if value="${len(items) > 0}">
+      <xacro:property name="rgba" value="${items[0][1]}"/>
+      <material name="${items[0][0]}"><color rgba="${rgba[0]} ${rgba[1]} ${rgba[2]} ${rgba[3]}"/></material>
+      <xacro:model_materials items="${items[1:]}"/>
+    </xacro:if>
+  </xacro:macro>
+
+  <!-- <origin> from an entry's optional xyz, rpy -->
+  <xacro:macro name="model_origin" params="entry">
+    <xacro:property name="xyz" value="${entry.get('xyz', [0, 0, 0])}"/>
+    <xacro:property name="rpy" value="${entry.get('rpy', [0, 0, 0])}"/>
+    <origin xyz="${xyz[0]} ${xyz[1]} ${xyz[2]}" rpy="${rpy[0]} ${rpy[1]} ${rpy[2]}"/>
+  </xacro:macro>
+
+  <xacro:macro name="model_visuals" params="items">
+    <xacro:if value="${len(items) > 0}">
+      <visual>
+        <xacro:model_origin entry="${items[0]}"/>
+        <geometry><mesh filename="package://${description_package}/meshes/visual/${items[0]['mesh']}"/></geometry>
+        <material name="${items[0]['material']}"/>
+      </visual>
+      <xacro:model_visuals items="${items[1:]}"/>
+    </xacro:if>
+  </xacro:macro>
+
+  <xacro:macro name="model_collisions" params="items">
+    <xacro:if value="${len(items) > 0}">
+      <xacro:property name="c" value="${items[0]}"/>
+      <collision>
+        <xacro:model_origin entry="${c}"/>
+        <geometry>
+          <xacro:if value="${'mesh' in c}"><mesh filename="package://${description_package}/meshes/collision/${c['mesh']}"/></xacro:if>
+          <xacro:if value="${'box' in c}"><box size="${c['box'][0]} ${c['box'][1]} ${c['box'][2]}"/></xacro:if>
+          <xacro:if value="${'cylinder' in c}"><cylinder radius="${c['cylinder']['radius']}" length="${c['cylinder']['length']}"/></xacro:if>
+          <xacro:if value="${'sphere' in c}"><sphere radius="${c['sphere']['radius']}"/></xacro:if>
+        </geometry>
+      </collision>
+      <xacro:model_collisions items="${items[1:]}"/>
+    </xacro:if>
+  </xacro:macro>
+
+  <xacro:macro name="model_link" params="name">
+    <link name="${name}">
+      <xacro:if value="${name in inertia_parameters}">
+        <xacro:property name="i" value="${inertia_parameters[name]}"/>
+        <xacro:property name="com" value="${i['center_of_mass']}"/>
+        <xacro:property name="t" value="${i['inertia']}"/>
+        <inertial>
+          <origin xyz="${com[0]} ${com[1]} ${com[2]}" rpy="0 0 0"/>
+          <mass value="${i['mass']}"/>
+          <inertia ixx="${t['ixx']}" ixy="${t['ixy']}" ixz="${t['ixz']}" iyy="${t['iyy']}" iyz="${t['iyz']}" izz="${t['izz']}"/>
+        </inertial>
+      </xacro:if>
+      <xacro:if value="${name in visual_parameters['mesh_files']}">
+        <xacro:property name="m" value="${visual_parameters['mesh_files'][name]}"/>
+        <xacro:model_visuals items="${m.get('visual', [])}"/>
+        <xacro:model_collisions items="${m.get('collision', [])}"/>
+      </xacro:if>
+    </link>
+  </xacro:macro>
+
+  <!-- type fixed | revolute | continuous; kind = the actuators.yaml joint kind (hip, thigh, calf, wheel) -->
+  <xacro:macro name="model_joint" params="name type parent child kind:=none axis:=none">
+    <xacro:property name="k" value="${kinematics[name]}"/>
+    <joint name="${name}" type="${type}">
+      <parent link="${parent}"/>
+      <child link="${child}"/>
+      <origin xyz="${k['x']} ${k['y']} ${k['z']}" rpy="${k['roll']} ${k['pitch']} ${k['yaw']}"/>
+      <xacro:unless value="${type == 'fixed'}">
+        <xacro:property name="drive" value="${actuators['joints'][kind]}"/>
+        <xacro:property name="loss" value="${'wheel' if kind == 'wheel' else 'leg'}"/>
+        <axis xyz="${axis}"/>
+        <xacro:if value="${type == 'revolute'}">
+          <limit lower="${joint_limits[name]['min_position']}" upper="${joint_limits[name]['max_position']}"
+                 effort="${drive['effort']}" velocity="${drive['velocity']}"/>
+        </xacro:if>
+        <xacro:unless value="${type == 'revolute'}">
+          <limit effort="${drive['effort']}" velocity="${drive['velocity']}"/>
+        </xacro:unless>
+        <dynamics damping="${actuators['unidentified'][loss + '_damping']}" friction="${actuators['unidentified'][loss + '_friction']}"/>
+      </xacro:unless>
+    </joint>
+  </xacro:macro>
+
+</robot>

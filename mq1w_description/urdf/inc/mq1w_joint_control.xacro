@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- The ros2_control interfaces of mq1w's joints, as ur_description's inc/ur_joint_control.xacro:
+     12 leg joints (position, velocity, effort commands; position starting at initial_positions), 4 wheels. -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="mq1w_leg_joint_interface" params="name initial">
+    <joint name="${name}">
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <command_interface name="effort"/>
+      <state_interface name="position"><param name="initial_value">${initial}</param></state_interface>
+      <state_interface name="velocity"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="effort"><param name="initial_value">0.0</param></state_interface>
+    </joint>
+  </xacro:macro>
+
+  <!-- a wheel: velocity and effort commands (it turns without end) -->
+  <xacro:macro name="mq1w_wheel_interface" params="name">
+    <joint name="${name}">
+      <command_interface name="velocity"/>
+      <command_interface name="effort"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="effort"><param name="initial_value">0.0</param></state_interface>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="mq1w_leg_interfaces" params="leg initial_positions">
+    <xacro:mq1w_leg_joint_interface name="${leg}_hip_joint" initial="${initial_positions[leg + '_hip_joint']}"/>
+    <xacro:mq1w_leg_joint_interface name="${leg}_thigh_joint" initial="${initial_positions[leg + '_thigh_joint']}"/>
+    <xacro:mq1w_leg_joint_interface name="${leg}_calf_joint" initial="${initial_positions[leg + '_calf_joint']}"/>
+  </xacro:macro>
+
+  <xacro:macro name="mq1w_joint_control_description" params="initial_positions">
+    <xacro:mq1w_leg_interfaces leg="FL" initial_positions="${initial_positions}"/>
+    <xacro:mq1w_leg_interfaces leg="FR" initial_positions="${initial_positions}"/>
+    <xacro:mq1w_leg_interfaces leg="RL" initial_positions="${initial_positions}"/>
+    <xacro:mq1w_leg_interfaces leg="RR" initial_positions="${initial_positions}"/>
+    <xacro:mq1w_wheel_interface name="FL_wheel_joint"/>
+    <xacro:mq1w_wheel_interface name="FR_wheel_joint"/>
+    <xacro:mq1w_wheel_interface name="RL_wheel_joint"/>
+    <xacro:mq1w_wheel_interface name="RR_wheel_joint"/>
+  </xacro:macro>
+</robot>

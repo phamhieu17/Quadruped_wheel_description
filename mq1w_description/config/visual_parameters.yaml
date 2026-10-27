@@ -1,0 +1,266 @@
+# MQ1W appearance and collision geometry of each link.
+#   materials  rgba
+#   visual     STL meshes in meshes/visual/, coloured by `material`
+#   collision  mesh: convex pieces in meshes/collision/, made from the link's visual meshes by
+#              scripts/make_collision_meshes.py (it rewrites these lists and the MJCF geoms);
+#              the contact elements keep their primitive: cylinder (wheel): radius, length (along z);
+#              sphere (foot): radius
+#   xyz, rpy   the pose in the link frame (m, rad); 0 when left out
+# mjcf/mq1w.xml has the same collision geoms (scripts/validate_model.py mq1w counts them).
+materials:
+  white: [0.94, 0.94, 0.93, 1]
+  dark: [0.16, 0.16, 0.18, 1]
+  black: [0.05, 0.05, 0.07, 1]
+  grey: [0.35, 0.36, 0.38, 1]
+  led: [0.25, 0.85, 1, 1]
+mesh_files:
+  base:
+    visual:
+      - {mesh: shell_top.stl, material: white}
+      - {mesh: shell_belly.stl, material: white}
+      - {mesh: chest_dome.stl, material: white}
+      - {mesh: rear_dome.stl, material: white}
+      - {mesh: chest_led.stl, material: led}
+      - {mesh: rear_led.stl, material: led}
+      - {mesh: chest_camera.stl, material: black}
+      - {mesh: chassis_frame.stl, material: dark}
+      - {mesh: sensor_head.stl, material: white}
+      - {mesh: face_visor.stl, material: black}
+      - {mesh: lidar.stl, material: dark}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0.2, 0.05, 0], rpy: [0, 0, 1.5708]}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0.2, -0.05, 0], rpy: [3.14159, 0, -1.5708]}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [-0.2, 0.05, 0], rpy: [-3.14159, 0, 1.5708]}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [-0.2, -0.05, 0], rpy: [0, 0, -1.5708]}
+    collision:
+      - {mesh: base_0.stl}
+      - {mesh: base_1.stl}
+      - {mesh: base_2.stl}
+      - {mesh: base_3.stl}
+      - {mesh: base_4.stl}
+      - {mesh: base_5.stl}
+      - {mesh: base_6.stl}
+      - {mesh: base_7.stl}
+      - {mesh: base_8.stl}
+      - {mesh: base_9.stl}
+      - {mesh: base_10.stl}
+      - {mesh: base_11.stl}
+  FL_hip:
+    visual:
+      - {mesh: hip_bracket_fl.stl, material: dark}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0, 0.1, 0]}
+      - {mesh: shoulder_pod_l.stl, material: white}
+    collision:
+      - {mesh: FL_hip_0.stl}
+      - {mesh: FL_hip_1.stl}
+      - {mesh: FL_hip_2.stl}
+      - {mesh: FL_hip_3.stl}
+      - {mesh: FL_hip_4.stl}
+      - {mesh: FL_hip_5.stl}
+      - {mesh: FL_hip_6.stl}
+      - {mesh: FL_hip_7.stl}
+      - {mesh: FL_hip_8.stl}
+      - {mesh: FL_hip_9.stl}
+  FL_thigh:
+    visual:
+      - {mesh: thigh_l.stl, material: white}
+      - {mesh: knee_cap_l.stl, material: black}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0, -0.017, 0], rpy: [3.14159, 1.5708, 0]}
+    collision:
+      - {mesh: FL_thigh_0.stl}
+      - {mesh: FL_thigh_1.stl}
+      - {mesh: FL_thigh_2.stl}
+      - {mesh: FL_thigh_3.stl}
+      - {mesh: FL_thigh_4.stl}
+      - {mesh: FL_thigh_5.stl}
+      - {mesh: FL_thigh_6.stl}
+      - {mesh: FL_thigh_7.stl}
+      - {mesh: FL_thigh_8.stl}
+  FL_calf:
+    visual:
+      - {mesh: calf_w.stl, material: black}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0, 0.0578, -0.22]}
+    collision:
+      - {mesh: FL_calf_0.stl}
+      - {mesh: FL_calf_1.stl}
+      - {mesh: FL_calf_2.stl}
+      - {mesh: FL_calf_3.stl}
+      - {mesh: FL_calf_4.stl}
+      - {mesh: FL_calf_5.stl}
+      - {mesh: FL_calf_6.stl}
+      - {mesh: FL_calf_7.stl}
+      - {mesh: FL_calf_8.stl}
+      - {mesh: FL_calf_9.stl}
+      - {mesh: FL_calf_10.stl}
+      - {mesh: FL_calf_11.stl}
+      - {mesh: FL_calf_12.stl}
+      - {mesh: FL_calf_13.stl}
+  FL_wheel:
+    visual:
+      - {mesh: wheel_rim_l.stl, material: grey}
+      - {mesh: wheel_tire.stl, material: black}
+    collision:
+      - {cylinder: {radius: 0.075, length: 0.044}, rpy: [1.5708, 0, 0]}
+  FR_hip:
+    visual:
+      - {mesh: hip_bracket_fr.stl, material: dark}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0, -0.1, 0], rpy: [3.14159, 0, 0]}
+      - {mesh: shoulder_pod_r.stl, material: white}
+    collision:
+      - {mesh: FR_hip_0.stl}
+      - {mesh: FR_hip_1.stl}
+      - {mesh: FR_hip_2.stl}
+      - {mesh: FR_hip_3.stl}
+      - {mesh: FR_hip_4.stl}
+      - {mesh: FR_hip_5.stl}
+      - {mesh: FR_hip_6.stl}
+      - {mesh: FR_hip_7.stl}
+      - {mesh: FR_hip_8.stl}
+      - {mesh: FR_hip_9.stl}
+  FR_thigh:
+    visual:
+      - {mesh: thigh_r.stl, material: white}
+      - {mesh: knee_cap_r.stl, material: black}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0, 0.017, 0], rpy: [0, 1.5708, 0]}
+    collision:
+      - {mesh: FR_thigh_0.stl}
+      - {mesh: FR_thigh_1.stl}
+      - {mesh: FR_thigh_2.stl}
+      - {mesh: FR_thigh_3.stl}
+      - {mesh: FR_thigh_4.stl}
+      - {mesh: FR_thigh_5.stl}
+      - {mesh: FR_thigh_6.stl}
+      - {mesh: FR_thigh_7.stl}
+  FR_calf:
+    visual:
+      - {mesh: calf_w.stl, material: black}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0, -0.0578, -0.22], rpy: [3.14159, 0, 0]}
+    collision:
+      - {mesh: FR_calf_0.stl}
+      - {mesh: FR_calf_1.stl}
+      - {mesh: FR_calf_2.stl}
+      - {mesh: FR_calf_3.stl}
+      - {mesh: FR_calf_4.stl}
+      - {mesh: FR_calf_5.stl}
+      - {mesh: FR_calf_6.stl}
+      - {mesh: FR_calf_7.stl}
+      - {mesh: FR_calf_8.stl}
+      - {mesh: FR_calf_9.stl}
+      - {mesh: FR_calf_10.stl}
+      - {mesh: FR_calf_11.stl}
+      - {mesh: FR_calf_12.stl}
+      - {mesh: FR_calf_13.stl}
+  FR_wheel:
+    visual:
+      - {mesh: wheel_rim_r.stl, material: grey}
+      - {mesh: wheel_tire.stl, material: black}
+    collision:
+      - {cylinder: {radius: 0.075, length: 0.044}, rpy: [1.5708, 0, 0]}
+  RL_hip:
+    visual:
+      - {mesh: hip_bracket_rl.stl, material: dark}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0, 0.1, 0], rpy: [3.14159, 0, 3.14159]}
+      - {mesh: shoulder_pod_l.stl, material: white}
+    collision:
+      - {mesh: RL_hip_0.stl}
+      - {mesh: RL_hip_1.stl}
+      - {mesh: RL_hip_2.stl}
+      - {mesh: RL_hip_3.stl}
+      - {mesh: RL_hip_4.stl}
+      - {mesh: RL_hip_5.stl}
+      - {mesh: RL_hip_6.stl}
+      - {mesh: RL_hip_7.stl}
+      - {mesh: RL_hip_8.stl}
+  RL_thigh:
+    visual:
+      - {mesh: thigh_l.stl, material: white}
+      - {mesh: knee_cap_l.stl, material: black}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0, -0.017, 0], rpy: [3.14159, 1.5708, 0]}
+    collision:
+      - {mesh: RL_thigh_0.stl}
+      - {mesh: RL_thigh_1.stl}
+      - {mesh: RL_thigh_2.stl}
+      - {mesh: RL_thigh_3.stl}
+      - {mesh: RL_thigh_4.stl}
+      - {mesh: RL_thigh_5.stl}
+      - {mesh: RL_thigh_6.stl}
+      - {mesh: RL_thigh_7.stl}
+      - {mesh: RL_thigh_8.stl}
+  RL_calf:
+    visual:
+      - {mesh: calf_w.stl, material: black}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0, 0.0578, -0.22]}
+    collision:
+      - {mesh: RL_calf_0.stl}
+      - {mesh: RL_calf_1.stl}
+      - {mesh: RL_calf_2.stl}
+      - {mesh: RL_calf_3.stl}
+      - {mesh: RL_calf_4.stl}
+      - {mesh: RL_calf_5.stl}
+      - {mesh: RL_calf_6.stl}
+      - {mesh: RL_calf_7.stl}
+      - {mesh: RL_calf_8.stl}
+      - {mesh: RL_calf_9.stl}
+      - {mesh: RL_calf_10.stl}
+      - {mesh: RL_calf_11.stl}
+      - {mesh: RL_calf_12.stl}
+      - {mesh: RL_calf_13.stl}
+  RL_wheel:
+    visual:
+      - {mesh: wheel_rim_l.stl, material: grey}
+      - {mesh: wheel_tire.stl, material: black}
+    collision:
+      - {cylinder: {radius: 0.075, length: 0.044}, rpy: [1.5708, 0, 0]}
+  RR_hip:
+    visual:
+      - {mesh: hip_bracket_rr.stl, material: dark}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0, -0.1, 0], rpy: [0, 0, 3.14159]}
+      - {mesh: shoulder_pod_r.stl, material: white}
+    collision:
+      - {mesh: RR_hip_0.stl}
+      - {mesh: RR_hip_1.stl}
+      - {mesh: RR_hip_2.stl}
+      - {mesh: RR_hip_3.stl}
+      - {mesh: RR_hip_4.stl}
+      - {mesh: RR_hip_5.stl}
+      - {mesh: RR_hip_6.stl}
+      - {mesh: RR_hip_7.stl}
+      - {mesh: RR_hip_8.stl}
+  RR_thigh:
+    visual:
+      - {mesh: thigh_r.stl, material: white}
+      - {mesh: knee_cap_r.stl, material: black}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0, 0.017, 0], rpy: [0, 1.5708, 0]}
+    collision:
+      - {mesh: RR_thigh_0.stl}
+      - {mesh: RR_thigh_1.stl}
+      - {mesh: RR_thigh_2.stl}
+      - {mesh: RR_thigh_3.stl}
+      - {mesh: RR_thigh_4.stl}
+      - {mesh: RR_thigh_5.stl}
+      - {mesh: RR_thigh_6.stl}
+      - {mesh: RR_thigh_7.stl}
+  RR_calf:
+    visual:
+      - {mesh: calf_w.stl, material: black}
+      - {mesh: go_m8010_6.stl, material: dark, xyz: [0, -0.0578, -0.22], rpy: [3.14159, 0, 0]}
+    collision:
+      - {mesh: RR_calf_0.stl}
+      - {mesh: RR_calf_1.stl}
+      - {mesh: RR_calf_2.stl}
+      - {mesh: RR_calf_3.stl}
+      - {mesh: RR_calf_4.stl}
+      - {mesh: RR_calf_5.stl}
+      - {mesh: RR_calf_6.stl}
+      - {mesh: RR_calf_7.stl}
+      - {mesh: RR_calf_8.stl}
+      - {mesh: RR_calf_9.stl}
+      - {mesh: RR_calf_10.stl}
+      - {mesh: RR_calf_11.stl}
+      - {mesh: RR_calf_12.stl}
+      - {mesh: RR_calf_13.stl}
+  RR_wheel:
+    visual:
+      - {mesh: wheel_rim_r.stl, material: grey}
+      - {mesh: wheel_tire.stl, material: black}
+    collision:
+      - {cylinder: {radius: 0.075, length: 0.044}, rpy: [1.5708, 0, 0]}

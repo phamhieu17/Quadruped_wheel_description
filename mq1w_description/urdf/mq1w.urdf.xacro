@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!-- MQ1W quadruped (wheel-legged), the top level as ur_description's ur.urdf.xacro: arguments, the config
+     files, then the robot macro (mq1w_macro.xacro). The robot alone: with ros2_control on mock hardware
+     it is mq1w_mocked.urdf.xacro (as ur_mocked.urdf.xacro). Units: m, kg, rad.
+     urdf/mq1w.urdf is this file's output (test/test_mq1w_urdf_xacro.py checks it):
+       cd mq1w_description && xacro urdf/mq1w.urdf.xacro -o urdf/mq1w.urdf -->
+<robot name="mq1w" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Another config file (a calibrated robot's kinematics, ...): an absolute path. Empty: config/. -->
+  <xacro:arg name="kinematics_params" default=""/>
+  <xacro:arg name="joint_limit_params" default=""/>
+  <xacro:arg name="physical_params" default=""/>
+  <xacro:arg name="visual_params" default=""/>
+  <xacro:arg name="actuator_params" default=""/>
+
+  <!-- Loaded here, at once (lazy_eval false): a relative name is resolved against this file. -->
+  <xacro:property name="kinematics_parameters" lazy_eval="false"
+                  value="${xacro.load_yaml('$(arg kinematics_params)' or '../config/default_kinematics.yaml')}"/>
+  <xacro:property name="joint_limits_parameters" lazy_eval="false"
+                  value="${xacro.load_yaml('$(arg joint_limit_params)' or '../config/joint_limits.yaml')}"/>
+  <xacro:property name="physical_parameters" lazy_eval="false"
+                  value="${xacro.load_yaml('$(arg physical_params)' or '../config/physical_parameters.yaml')}"/>
+  <xacro:property name="visual_parameters" lazy_eval="false"
+                  value="${xacro.load_yaml('$(arg visual_params)' or '../config/visual_parameters.yaml')}"/>
+  <xacro:property name="actuator_parameters" lazy_eval="false"
+                  value="${xacro.load_yaml('$(arg actuator_params)' or '../config/actuators.yaml')}"/>
+
+  <xacro:include filename="mq1w_macro.xacro"/>
+
+  <xacro:mq1w kinematics_parameters="${kinematics_parameters}" joint_limits_parameters="${joint_limits_parameters}"
+             physical_parameters="${physical_parameters}" visual_parameters="${visual_parameters}"
+             actuator_parameters="${actuator_parameters}"/>
+
+</robot>

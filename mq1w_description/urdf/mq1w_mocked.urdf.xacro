@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- MQ1W with ros2_control on mock hardware (as ur_description's ur_mocked.urdf.xacro): the robot of
+     mq1w.urdf.xacro (its arguments too) and the ros2_control system of ros2_control_mock_hardware.xacro,
+     its joints starting at initial_positions_file. For trying ros2_control and for the package test:
+     nothing of the control stack uses it (the robot is driven by mq1w_control's control_node). -->
+<robot name="mq1w" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="initial_positions_file" default=""/>   <!-- an absolute path; empty: config/initial_positions.yaml -->
+  <xacro:arg name="mock_sensor_commands" default="false"/>
+
+  <xacro:include filename="mq1w.urdf.xacro"/>
+  <xacro:include filename="ros2_control_mock_hardware.xacro"/>
+
+  <!-- loaded here, at once: a relative name is resolved against this file -->
+  <xacro:property name="initial_positions" lazy_eval="false"
+                  value="${xacro.load_yaml('$(arg initial_positions_file)' or '../config/initial_positions.yaml')}"/>
+  <xacro:mq1w_ros2_control name="mq1w_system" initial_positions="${initial_positions}"
+                         mock_sensor_commands="$(arg mock_sensor_commands)"/>
+</robot>

@@ -1,0 +1,17 @@
+# MQ1W position range of each revolute joint (rad): the mechanical stops of the assembly. The rear
+# thighs' range is the front one turned by +60 deg. Wheels are continuous (no position limit).
+# One source per number: effort and velocity are the drive's (actuators.yaml joints.<kind>), damping
+# and friction actuators.yaml unidentified; the xacro reads them there.
+joint_limits:
+  FL_hip_joint:         {min_position: -0.6000, max_position: 0.6000}
+  FL_thigh_joint:       {min_position: -1.5708, max_position: 3.4907}
+  FL_calf_joint:        {min_position: -2.5500, max_position: -0.8400}
+  FR_hip_joint:         {min_position: -0.6000, max_position: 0.6000}
+  FR_thigh_joint:       {min_position: -1.5708, max_position: 3.4907}
+  FR_calf_joint:        {min_position: -2.5500, max_position: -0.8400}
+  RL_hip_joint:         {min_position: -0.6000, max_position: 0.6000}
+  RL_thigh_joint:       {min_position: -0.5236, max_position: 4.5379}
+  RL_calf_joint:        {min_position: -2.5500, max_position: -0.8400}
+  RR_hip_joint:         {min_position: -0.6000, max_position: 0.6000}
+  RR_thigh_joint:       {min_position: -0.5236, max_position: 4.5379}
+  RR_calf_joint:        {min_position: -2.5500, max_position: -0.8400}

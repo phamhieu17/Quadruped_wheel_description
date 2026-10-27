@@ -1,0 +1,73 @@
+# MQ1W mass (kg), centre of mass (m, link frame) and inertia tensor (kg m^2, about the centre of mass,
+# link axes) of each link, from the SolidWorks parts (motors included). Leg links are listed per leg:
+# left and right are mirrored parts, front and rear hips different parts.
+# mjcf/mq1w.xml carries the same values (scripts/validate_model.py mq1w checks them).
+inertia_parameters:
+  base:
+    mass: 7.31
+    center_of_mass: [0.0136185, -4.41157e-08, 0.00310078]
+    inertia: {ixx: 0.0244279, ixy: 1.97166e-08, ixz: -0.00814489, iyy: 0.185114, iyz: -1.25944e-08, izz: 0.188346}
+  FL_hip:
+    mass: 0.93
+    center_of_mass: [-0.00192436, 0.065427, 0]
+    inertia: {ixx: 0.00136998, ixy: -0.00010156, ixz: 2.33138e-14, iyy: 0.000905635, iyz: -3.58256e-14, izz: 0.00131929}
+  FL_thigh:
+    mass: 1.19
+    center_of_mass: [7.59094e-05, 0.000665241, -0.028983]
+    inertia: {ixx: 0.00422131, ixy: 2.32738e-08, ixz: -3.35531e-05, iyy: 0.0046783, iyz: -2.21037e-05, izz: 0.00089928}
+  FL_calf:
+    mass: 0.75
+    center_of_mass: [0.000333392, 0.0283011, -0.186677]
+    inertia: {ixx: 0.00392531, ixy: 4.04213e-06, ixz: -1.28923e-05, iyy: 0.0039046, iyz: 0.000707308, izz: 0.000660402}
+  FL_wheel:
+    mass: 0.37
+    center_of_mass: [2.13989e-12, 0.00158799, 0]
+    inertia: {ixx: 0.000755694, ixy: 2.76782e-14, ixz: 3.14559e-14, iyy: 0.00137981, iyz: -1.67624e-15, izz: 0.000755694}
+  FR_hip:
+    mass: 0.93
+    center_of_mass: [-0.00192436, -0.065427, 0]
+    inertia: {ixx: 0.00136998, ixy: 0.00010156, ixz: -1.16507e-14, iyy: 0.000905635, iyz: -3.64018e-14, izz: 0.00131929}
+  FR_thigh:
+    mass: 1.19
+    center_of_mass: [7.59094e-05, -0.000665241, -0.028983]
+    inertia: {ixx: 0.00422131, ixy: -2.32739e-08, ixz: -3.35531e-05, iyy: 0.0046783, iyz: 2.21037e-05, izz: 0.00089928}
+  FR_calf:
+    mass: 0.75
+    center_of_mass: [0.000333392, -0.0283012, -0.186677]
+    inertia: {ixx: 0.00392531, ixy: -4.04128e-06, ixz: -1.28923e-05, iyy: 0.0039046, iyz: -0.000707308, izz: 0.000660401}
+  FR_wheel:
+    mass: 0.37
+    center_of_mass: [2.13989e-12, -0.00158799, 0]
+    inertia: {ixx: 0.000755694, ixy: 2.51636e-14, ixz: 3.14559e-14, iyy: 0.00137981, iyz: -2.21544e-14, izz: 0.000755694}
+  RL_hip:
+    mass: 0.93
+    center_of_mass: [0.00192436, 0.065427, 0]
+    inertia: {ixx: 0.00136998, ixy: 0.00010156, ixz: 2.28365e-14, iyy: 0.000905635, iyz: 3.64018e-14, izz: 0.00131929}
+  RL_thigh:
+    mass: 1.19
+    center_of_mass: [7.59094e-05, 0.000665241, -0.028983]
+    inertia: {ixx: 0.00422131, ixy: 2.32738e-08, ixz: -3.35531e-05, iyy: 0.0046783, iyz: -2.21037e-05, izz: 0.00089928}
+  RL_calf:
+    mass: 0.75
+    center_of_mass: [0.000333392, 0.0283011, -0.186677]
+    inertia: {ixx: 0.00392531, ixy: 4.04213e-06, ixz: -1.28923e-05, iyy: 0.0039046, iyz: 0.000707308, izz: 0.000660402}
+  RL_wheel:
+    mass: 0.37
+    center_of_mass: [2.13989e-12, 0.00158799, 0]
+    inertia: {ixx: 0.000755694, ixy: 2.76782e-14, ixz: 3.14559e-14, iyy: 0.00137981, iyz: -1.67624e-15, izz: 0.000755694}
+  RR_hip:
+    mass: 0.93
+    center_of_mass: [0.00192436, -0.065427, 0]
+    inertia: {ixx: 0.00136998, ixy: -0.00010156, ixz: -1.21281e-14, iyy: 0.000905635, iyz: 3.58256e-14, izz: 0.00131929}
+  RR_thigh:
+    mass: 1.19
+    center_of_mass: [7.59094e-05, -0.000665241, -0.028983]
+    inertia: {ixx: 0.00422131, ixy: -2.32739e-08, ixz: -3.35531e-05, iyy: 0.0046783, iyz: 2.21037e-05, izz: 0.00089928}
+  RR_calf:
+    mass: 0.75
+    center_of_mass: [0.000333392, -0.0283012, -0.186677]
+    inertia: {ixx: 0.00392531, ixy: -4.04128e-06, ixz: -1.28923e-05, iyy: 0.0039046, iyz: -0.000707308, izz: 0.000660401}
+  RR_wheel:
+    mass: 0.37
+    center_of_mass: [2.13989e-12, -0.00158799, 0]
+    inertia: {ixx: 0.000755694, ixy: 2.51636e-14, ixz: 3.14559e-14, iyy: 0.00137981, iyz: -2.21544e-14, izz: 0.000755694}

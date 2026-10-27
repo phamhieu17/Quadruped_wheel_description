@@ -1,0 +1,26 @@
+# MQ1W joint origins: the pose of each joint frame in its parent link (m; rad, URDF roll-pitch-yaw).
+# From the SolidWorks assembly. As ur_description's default_kinematics.yaml, this is the nominal
+# geometry: a calibrated robot gets its own copy, passed as kinematics_params:=<file> to the xacro.
+# mjcf/mq1w.xml carries the same values (scripts/validate_model.py mq1w checks them).
+kinematics:
+  base_fixed:           {x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0}
+  imu_link_joint:       {x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0}
+  lidar_link_joint:     {x: 0.165, y: 0, z: 0.132, roll: 0, pitch: 0, yaw: 0}
+  camera_link_joint:    {x: 0.2471, y: 0, z: 0.084, roll: 0, pitch: 0, yaw: 0}
+  camera_optical_joint: {x: 0, y: 0, z: 0, roll: -1.5707963, pitch: 0, yaw: -1.5707963}
+  FL_hip_joint:         {x: 0.2, y: 0.05, z: 0, roll: 0, pitch: 0, yaw: 0}
+  FL_thigh_joint:       {x: 0, y: 0.129, z: 0, roll: 0, pitch: 0, yaw: 0}
+  FL_calf_joint:        {x: 0, y: 0, z: -0.22, roll: 0, pitch: 0, yaw: 0}
+  FL_wheel_joint:       {x: 0, y: 0.042, z: -0.22, roll: 0, pitch: 0, yaw: 0}
+  FR_hip_joint:         {x: 0.2, y: -0.05, z: 0, roll: 0, pitch: 0, yaw: 0}
+  FR_thigh_joint:       {x: 0, y: -0.129, z: 0, roll: 0, pitch: 0, yaw: 0}
+  FR_calf_joint:        {x: 0, y: 0, z: -0.22, roll: 0, pitch: 0, yaw: 0}
+  FR_wheel_joint:       {x: 0, y: -0.042, z: -0.22, roll: 0, pitch: 0, yaw: 0}
+  RL_hip_joint:         {x: -0.2, y: 0.05, z: 0, roll: 0, pitch: 0, yaw: 0}
+  RL_thigh_joint:       {x: 0, y: 0.129, z: 0, roll: 0, pitch: 0, yaw: 0}
+  RL_calf_joint:        {x: 0, y: 0, z: -0.22, roll: 0, pitch: 0, yaw: 0}
+  RL_wheel_joint:       {x: 0, y: 0.042, z: -0.22, roll: 0, pitch: 0, yaw: 0}
+  RR_hip_joint:         {x: -0.2, y: -0.05, z: 0, roll: 0, pitch: 0, yaw: 0}
+  RR_thigh_joint:       {x: 0, y: -0.129, z: 0, roll: 0, pitch: 0, yaw: 0}
+  RR_calf_joint:        {x: 0, y: 0, z: -0.22, roll: 0, pitch: 0, yaw: 0}
+  RR_wheel_joint:       {x: 0, y: -0.042, z: -0.22, roll: 0, pitch: 0, yaw: 0}

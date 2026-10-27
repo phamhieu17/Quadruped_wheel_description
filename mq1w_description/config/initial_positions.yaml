@@ -1,0 +1,14 @@
+# MQ1W joint positions (rad) the ros2_control mock hardware starts at: the standing pose, as the MJCF
+# keyframe "home" (mjcf/mq1w.xml). Wheels start at 0.
+FL_hip_joint: 0.0
+FL_thigh_joint: 0.8
+FL_calf_joint: -1.5
+FR_hip_joint: 0.0
+FR_thigh_joint: 0.8
+FR_calf_joint: -1.5
+RL_hip_joint: 0.0
+RL_thigh_joint: 0.8
+RL_calf_joint: -1.5
+RR_hip_joint: 0.0
+RR_thigh_joint: 0.8
+RR_calf_joint: -1.5

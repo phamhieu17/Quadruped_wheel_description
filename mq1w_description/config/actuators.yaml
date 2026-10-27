@@ -1,0 +1,26 @@
+# Actuator model for MQ1W (Unitree GO-M8010-6 on every joint). Joint-side (output) quantities, SI units.
+# URDF cannot carry rotor inertia: model-based controllers (Pinocchio/RBDL) must add `armature`
+# to the joint-space mass matrix diagonal (pinocchio: model.armature[v_idx] = armature).
+# MJCF already uses these values (default classes hip/thigh/calf/wheel in mjcf/mq1w.xml).
+
+motor:
+  name: GO-M8010-6
+  gear_ratio: 6.33           # internal planetary reduction
+  peak_torque: 23.7          # N·m at motor output
+  max_speed: 30.1            # rad/s at motor output
+  mass: 0.53                 # kg (already included in link inertials)
+
+joints:                      # extra_ratio = transmission after the motor output
+  hip:   {extra_ratio: 1.0, effort: 23.7, velocity: 30.1, armature: 0.0045}
+  thigh: {extra_ratio: 1.0, effort: 23.7, velocity: 30.1, armature: 0.0045}
+  calf:  {extra_ratio: 1.5, effort: 35.6, velocity: 20.1, armature: 0.0102}   # armature = 0.0045 * 1.5^2
+  wheel: {extra_ratio: 1.0, effort: 23.7, velocity: 30.1, armature: 0.0045}
+
+# Placeholder values currently used in URDF/MJCF; NOT measured. Replace after system identification.
+unidentified:
+  leg_damping: 0.05          # N·m·s/rad
+  leg_friction: 0.1          # N·m (coulomb / frictionloss)
+  wheel_damping: 0.02
+  wheel_friction: 0.05
+  torque_speed_curve: null   # peak torque currently assumed flat up to max_speed
+  tyre_friction: 1.0         # MJCF tyre class, sliding coefficient

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!-- The mq1w robot (wheel-legged) as a macro, as ur_description's ur_macro.xacro. Its numbers are in the
+     config files it is given (loaded: xacro.load_yaml). Link and joint names are what the control stack
+     looks up: <leg>_{hip,thigh,calf,wheel}_joint (the wheel's link carries the tyre cylinder), base, imu_link. -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="inc/mq1w_common.xacro"/>
+
+  <!-- one leg: hip (about x), thigh and calf (about y), wheel (about y, continuous) -->
+  <xacro:macro name="mq1w_leg" params="leg">
+    <xacro:model_link name="${leg}_hip"/>
+    <xacro:model_joint name="${leg}_hip_joint" type="revolute" kind="hip" axis="1 0 0" parent="base" child="${leg}_hip"/>
+    <xacro:model_link name="${leg}_thigh"/>
+    <xacro:model_joint name="${leg}_thigh_joint" type="revolute" kind="thigh" axis="0 1 0" parent="${leg}_hip" child="${leg}_thigh"/>
+    <xacro:model_link name="${leg}_calf"/>
+    <xacro:model_joint name="${leg}_calf_joint" type="revolute" kind="calf" axis="0 1 0" parent="${leg}_thigh" child="${leg}_calf"/>
+    <xacro:model_link name="${leg}_wheel"/>
+    <xacro:model_joint name="${leg}_wheel_joint" type="continuous" kind="wheel" axis="0 1 0" parent="${leg}_calf" child="${leg}_wheel"/>
+  </xacro:macro>
+
+  <xacro:macro name="mq1w" params="kinematics_parameters joint_limits_parameters physical_parameters
+                                   visual_parameters actuator_parameters">
+    <xacro:read_model_data package="mq1w_description"
+        kinematics_parameters="${kinematics_parameters}" joint_limits_parameters="${joint_limits_parameters}"
+        physical_parameters="${physical_parameters}" visual_parameters="${visual_parameters}"
+        actuator_parameters="${actuator_parameters}"/>
+    <xacro:model_materials items="${list(visual_parameters['materials'].items())}"/>
+
+    <xacro:model_link name="base_link"/>
+    <xacro:model_joint name="base_fixed" type="fixed" parent="base_link" child="base"/>
+    <xacro:model_link name="base"/>
+    <!-- sensor frames -->
+    <xacro:model_link name="imu_link"/>
+    <xacro:model_joint name="imu_link_joint" type="fixed" parent="base" child="imu_link"/>
+    <xacro:model_link name="lidar_link"/>
+    <xacro:model_joint name="lidar_link_joint" type="fixed" parent="base" child="lidar_link"/>
+    <xacro:model_link name="camera_link"/>
+    <xacro:model_joint name="camera_link_joint" type="fixed" parent="base" child="camera_link"/>
+    <xacro:model_link name="camera_optical_frame"/>
+    <xacro:model_joint name="camera_optical_joint" type="fixed" parent="camera_link" child="camera_optical_frame"/>
+
+    <xacro:mq1w_leg leg="FL"/>
+    <xacro:mq1w_leg leg="FR"/>
+    <xacro:mq1w_leg leg="RL"/>
+    <xacro:mq1w_leg leg="RR"/>
+  </xacro:macro>
+</robot>

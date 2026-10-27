@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The mq1w model in RViz, joints moved by sliders, as ur_description's view_ur.launch.xml: the arguments
+     and the nodes (view_mq1w.launch.py only includes this file).
+       ros2 launch mq1w_description view_mq1w.launch.xml [gui:=false] [rviz:=false] -->
+<launch>
+  <arg name="rviz_config_file" default="$(find-pkg-share mq1w_description)/rviz/view_robot.rviz"
+       description="RViz config file (absolute path) to use when launching rviz."/>
+  <arg name="description_file" default="$(find-pkg-share mq1w_description)/urdf/mq1w.urdf.xacro"
+       description="URDF/XACRO description file (absolute path) with the robot."/>
+  <arg name="gui" default="true" description="joint sliders (joint_state_publisher_gui); false: joint_state_publisher"/>
+  <arg name="rviz" default="true" description="RViz (false: the nodes alone, as the test runs it)"/>
+
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">
+    <param name="robot_description" type="str" value="$(command '$(find-exec xacro) $(var description_file)')"/>
+  </node>
+  <node pkg="joint_state_publisher_gui" exec="joint_state_publisher_gui" if="$(var gui)"/>
+  <node pkg="joint_state_publisher" exec="joint_state_publisher" unless="$(var gui)"/>
+  <node pkg="rviz2" exec="rviz2" args="-d $(var rviz_config_file)" output="screen" if="$(var rviz)"/>
+</launch>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- The ros2_control system of mq1w on mock hardware (mock_components/GenericSystem: a commanded joint is
+     where it was told to be), as ur_description's ros2_control_mock_hardware.xacro. The joints are
+     inc/mq1w_joint_control.xacro, the sensors inc/mq1w_sensors.xacro. -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="inc/mq1w_joint_control.xacro"/>
+  <xacro:include filename="inc/mq1w_sensors.xacro"/>
+
+  <xacro:macro name="mq1w_ros2_control" params="name initial_positions mock_sensor_commands:=false">
+    <ros2_control name="${name}" type="system">
+      <hardware>
+        <plugin>mock_components/GenericSystem</plugin>
+        <param name="mock_sensor_commands">${mock_sensor_commands}</param>
+        <param name="state_following_offset">0.0</param>
+        <param name="calculate_dynamics">true</param>
+      </hardware>
+      <xacro:mq1w_joint_control_description initial_positions="${initial_positions}"/>
+      <xacro:mq1w_sensors/>
+    </ros2_control>
+  </xacro:macro>
+</robot>
