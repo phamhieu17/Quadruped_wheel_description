@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>robots/mq1w — Đại Từ Điển Thiết Kế, Động Lực Học & Động Học Robot Bánh-Chân MQ1W (16 DoF)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for High-Fidelity Mathematical Typography -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]});"></script>
+
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --bg-card: rgba(22, 31, 48, 0.82);
+      --border: rgba(148, 163, 184, 0.15);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --cyan: #06b6d4;
+      --blue: #3b82f6;
+      --purple: #a855f7;
+      --green: #10b981;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --code-bg: #0f172a;
+      --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-card: #ffffff;
+      --border: rgba(203, 213, 225, 0.85);
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --code-bg: #f1f5f9;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.68; }
+    header {
+      position: sticky; top: 0; backdrop-filter: blur(16px);
+      background: rgba(10, 14, 26, 0.9); border-bottom: 1px solid var(--border);
+      z-index: 50; padding: 0.85rem 2rem; display: flex; justify-content: space-between; align-items: center;
+    }
+    [data-theme="light"] header { background: rgba(248, 250, 252, 0.92); }
+    .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 1.25rem; font-size: 0.88rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--cyan); }
+    .theme-toggle { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 2.5rem 1.5rem 6rem; }
+    .hero { margin-bottom: 2.5rem; }
+    .hero h1 { font-size: 2.6rem; font-weight: 800; color: var(--cyan); margin-bottom: 0.6rem; letter-spacing: -0.02em; }
+    .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 980px; }
+    
+    .toc-bar {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0 2rem; padding: 1.1rem;
+      background: var(--code-bg); border: 1px solid var(--border); border-radius: 12px;
+    }
+    .toc-bar a {
+      font-size: 0.82rem; font-weight: 600; color: var(--text-muted); text-decoration: none;
+      padding: 0.35rem 0.75rem; border-radius: 6px; background: rgba(255,255,255,0.03); transition: all 0.2s;
+    }
+    .toc-bar a:hover { color: var(--purple); background: rgba(168,85,247,0.12); }
+
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 2.2rem; margin-top: 2rem; box-shadow: var(--shadow); }
+    h2 { font-size: 1.45rem; font-weight: 700; color: var(--text); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; border-bottom: 1px solid var(--border); padding-bottom: 0.6rem; }
+    h3 { font-size: 1.2rem; font-weight: 600; color: var(--cyan); margin: 1.6rem 0 0.6rem; }
+    p { margin-bottom: 0.95rem; }
+    ul, ol { margin: 0 0 1.1rem 1.6rem; }
+    li { margin-bottom: 0.45rem; }
+    code { font-family: 'JetBrains Mono', monospace; background: var(--code-bg); padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.88rem; color: var(--cyan); }
+    pre { background: var(--code-bg); padding: 1.25rem; border-radius: 10px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; margin: 0.85rem 0 1.4rem; border: 1px solid var(--border); line-height: 1.55; }
+    
+    table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.92rem; }
+    th, td { text-align: left; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
+    th { background: var(--code-bg); color: var(--text-muted); font-weight: 600; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .math-block {
+      background: rgba(15, 23, 42, 0.75); border-left: 4px solid var(--purple);
+      padding: 1.2rem 1.5rem; border-radius: 0 10px 10px 0; margin: 1.2rem 0 1.5rem;
+      font-size: 0.95rem; line-height: 1.8;
+    }
+    .badge { font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 9999px; }
+    .badge-purple { background: rgba(168,85,247,0.15); color: var(--purple); border: 1px solid rgba(168,85,247,0.3); }
+
+    .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+    .media-card {
+      background: var(--code-bg); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    .media-card img { width: 100%; height: auto; object-fit: contain; background: #070a13; display: block; }
+    .media-caption { padding: 0.85rem 1.1rem; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border); }
+    .media-caption b { color: var(--text); }
+
+    .sim-container { display: grid; grid-template-columns: 1fr 350px; gap: 1.5rem; background: var(--code-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; }
+    @media (max-width: 900px) { .sim-container { grid-template-columns: 1fr; } }
+    .canvas-box { position: relative; width: 100%; height: 440px; background: rgba(10, 14, 26, 0.95); border-radius: 8px; border: 1px solid var(--border); overflow: hidden; }
+    .slider-group { display: flex; flex-direction: column; gap: 1.1rem; }
+    .slider-item { display: flex; flex-direction: column; gap: 0.35rem; }
+    .slider-item label { font-size: 0.85rem; font-weight: 600; display: flex; justify-content: space-between; }
+    .slider-item input[type="range"] { accent-color: var(--purple); cursor: pointer; }
+    .readout-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 0.9rem; font-family: 'JetBrains Mono', monospace; font-size: 0.84rem; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex; align-items:center; gap:1rem;">
+      <a href="../../index.html" style="text-decoration:none; color:inherit; font-weight:800; font-size:1.15rem; color:var(--cyan);">QUADRUPED</a>
+      <span style="color:var(--border);">/</span>
+      <a href="../index.html" style="text-decoration:none; color:inherit; font-size:0.9rem; color:var(--text-muted);">robots</a>
+      <span style="color:var(--border);">/</span>
+      <span style="font-size:0.9rem; color:var(--text); font-weight:600;">mq1w</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:1.25rem;">
+      <nav class="nav-links">
+        <a href="../../index.html">Master Portal</a>
+        <a href="../mq1/index.html">MQ1 (Point-Foot)</a>
+        <a href="../../high_level_control/index.html">High-Level</a>
+        <a href="../../high_level_control/controllers.html">Wheeled Controllers</a>
+        <a href="../../low_level_control/protocols.html">Protocols</a>
+      </nav>
+      <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="hero">
+      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem;">
+        <span class="badge badge-purple">Submodule: Quadruped_wheel_description</span>
+        <span class="badge" style="background:rgba(6,182,212,0.15); color:var(--cyan); border:1px solid rgba(6,182,212,0.3);">16 Degrees of Freedom</span>
+        <span class="badge" style="background:rgba(16,185,129,0.15); color:var(--green); border:1px solid rgba(16,185,129,0.3);">Wheel-Legged Hybrid</span>
+      </div>
+      <h1>robots/mq1w — Đại Từ Điển Thiết Kế &amp; Động Lực Học Bánh-Chân MQ1W</h1>
+      <p>Cẩm nang toàn diện cho robot bốn chân bánh xe (16 DoF): Hình ảnh 3D renders thực tế, động học lăn không trượt, lái trượt Skid-Steering, tự nghiêng thân vào cua (Banking), thông số quán tính 17 khâu, ma trận 22 biến QP và mô phỏng tương tác thời gian thực.</p>
+    </div>
+
+    <!-- Table of Contents Bar -->
+    <div class="toc-bar">
+      <span style="font-size:0.82rem; font-weight:700; color:var(--purple); padding:0.35rem 0.5rem;">MỤC LỤC:</span>
+      <a href="#sec-overview">1. Tổng Quan &amp; Hình Ảnh 3D</a>
+      <a href="#sec-actuators">2. Hệ 16 Động Cơ GO-M8010-6</a>
+      <a href="#sec-inertials">3. Bảng Quán Tính 17 Khâu</a>
+      <a href="#sec-rolling">4. Động Học Tiếp Xúc Lăn Bánh Xe</a>
+      <a href="#sec-skid">5. Động Học Lái Trượt Skid-Steering</a>
+      <a href="#sec-banking">6. Động Lực Học Nghiêng Thân (Banking)</a>
+      <a href="#sec-posture">7. Phong Bì Tư Thế (Posture Envelope)</a>
+      <a href="#sec-urdf">8. Khai Báo URDF / Continuous Joints</a>
+      <a href="#sec-mjcf">9. Mô Hình MuJoCo Cylinder Wheels</a>
+      <a href="#sec-interactive">10. Trình Mô Phỏng Bánh-Chân Live</a>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div id="sec-overview" class="card">
+      <h2>🏎️ 1. Tổng Quan &amp; Hình Ảnh Renders 3D MQ1W</h2>
+      <p><b>MQ1W</b> kết hợp ưu thế vượt trội của hai thế giới: Tốc độ cao, tiết kiệm năng lượng của robot bánh xe trên đường bằng, cùng khả năng vượt địa hình dốc, cầu thang và chướng ngại vật mấp mô của chân khớp đa bậc tự do.</p>
+
+      <!-- 3D Renders Visual Gallery -->
+      <div class="media-grid">
+        <div class="media-card">
+          <img src="mq1w_description/doc/frames/standing_iso.png" alt="MQ1W Isometric 3D Model with Coordinate Frames" />
+          <div class="media-caption">
+            <b>Hình 1.1:</b> Mô hình 3D góc nhìn Isometric của robot bánh-chân MQ1W hiển thị hệ trục tọa độ tại 16 khớp quay và 4 bánh xe chủ động.
+          </div>
+        </div>
+        <div class="media-card">
+          <img src="mq1w_description/doc/frames/standing_side.png" alt="MQ1W Side View with Wheel Assembly" />
+          <div class="media-caption">
+            <b>Hình 1.2:</b> Mặt cắt bên của MQ1W hiển thị cấu trúc bánh xe bán kính $R_w = 0.08\text{ m}$ gắn trực tiếp vào trục động cơ GO-M8010-6 tại đầu cẳng chân.
+          </div>
+        </div>
+      </div>
+
+      <div class="math-block">
+        $$\text{Tổng khối lượng toàn robot: } M_{\text{total}} = 20.27\text{ kg} \quad (M_{\text{base}} = 7.31\text{ kg}, \quad 4 \times M_{\text{leg+wheel}} = 12.96\text{ kg})$$
+        $$\text{Số bậc tự do: } 16\text{ DoF hoạt hóa} \quad (4 \text{ hông} + 4 \text{ đùi} + 4 \text{ cẳng} + 4 \text{ bánh xe})$$
+        $$\text{Bán kính bánh xe: } R_w = 0.080\text{ m (80 mm)}, \quad \text{Độ dời tâm bánh: } d_{yw} = \pm 0.042\text{ m}$$
+        $$\text{Vận tốc tối đa trên bánh xe: } v_{\max} = R_w \cdot \dot{q}_{\max} = 0.080 \times 30.1 \approx 2.4\text{ m/s (8.6 km/h)}$$
+        $$\text{Góc nghiêng thân tối đa (Max Banking): } \pm 18^\circ$$
+      </div>
+
+      <h3>Sơ Đồ Luồng Tệp Tin Mô Hình (Package Structure)</h3>
+      <div style="background:var(--code-bg); border:1px solid var(--border); border-radius:10px; padding:1.25rem; overflow-x:auto;">
+        <img src="mq1w_description/doc/structure.svg" alt="MQ1W Description Package Structure Pipeline" style="max-width:100%; height:auto; display:block; margin:0 auto;" />
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div id="sec-actuators" class="card">
+      <h2>⚡ 2. Hệ 16 Động Cơ Unitree GO-M8010-6</h2>
+      <p>Cả 16 khớp (kể cả 4 bánh xe) đều sử dụng chung một loại động cơ servo Unitree GO-M8010-6, tạo sự đồng nhất tuyệt đối về phụ tùng thay thế và điều khiển bus RS-485:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nhóm Khớp</th>
+            <th>Số Lượng</th>
+            <th>Tỷ số truyền</th>
+            <th>Mô-men cực đại $\tau_{\max}$</th>
+            <th>Vận tốc góc tối đa</th>
+            <th>Quán tính Rotor phản ánh ($I_{\text{armature}}$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Hip Joint</b></td>
+            <td>4</td>
+            <td>$6.33 : 1$</td>
+            <td><code>23.7 N·m</code></td>
+            <td><code>30.1 rad/s</code></td>
+            <td><code>0.0045 kg·m²</code></td>
+          </tr>
+          <tr>
+            <td><b>Thigh Joint</b></td>
+            <td>4</td>
+            <td>$6.33 : 1$</td>
+            <td><code>23.7 N·m</code></td>
+            <td><code>30.1 rad/s</code></td>
+            <td><code>0.0045 kg·m²</code></td>
+          </tr>
+          <tr>
+            <td><b>Calf Joint</b></td>
+            <td>4</td>
+            <td>$9.495 : 1$ ($6.33 \times 1.5$)</td>
+            <td><code>35.6 N·m</code></td>
+            <td><code>20.1 rad/s</code></td>
+            <td><code>0.0102 kg·m²</code></td>
+          </tr>
+          <tr>
+            <td><b>Wheel Joint</b></td>
+            <td>4</td>
+            <td>$6.33 : 1$ (Trực tiếp)</td>
+            <td><code>23.7 N·m</code></td>
+            <td><code>30.1 rad/s</code></td>
+            <td><code>0.0045 kg·m²</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div id="sec-inertials" class="card">
+      <h2>⚖️ 3. Bảng Tra Cứu Thông Số Quán Tính 17 Khâu MQ1W</h2>
+      <p>Số liệu từ <code>config/physical_parameters.yaml</code>. Khác với MQ1, cẳng chân (Calf) của MQ1W nặng hơn (0.75 kg) do mang theo vỏ gá động cơ bánh xe, và khâu bánh xe (Wheel) nặng 0.37 kg:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Tên Khâu (Link)</th>
+            <th>Khối Lượng (kg)</th>
+            <th>Khối Tâm CoM $[x, y, z]$ (m)</th>
+            <th>Mô-men Quán Tính $[I_{xx}, I_{yy}, I_{zz}]$ ($\text{kg}\cdot\text{m}^2$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><b>base_link</b></td><td><code>7.310</code></td><td><code>[+0.01362, -0.00000, +0.00310]</code></td><td><code>[0.02443, 0.18511, 0.18835]</code></td></tr>
+          <tr><td><b>FL_hip</b> / <b>FR_hip</b></td><td><code>0.930</code></td><td><code>[-0.00192, &plusmn;0.06543, 0.00000]</code></td><td><code>[0.00137, 0.00091, 0.00132]</code></td></tr>
+          <tr><td><b>RL_hip</b> / <b>RR_hip</b></td><td><code>0.930</code></td><td><code>[+0.00192, &plusmn;0.06543, 0.00000]</code></td><td><code>[0.00137, 0.00091, 0.00132]</code></td></tr>
+          <tr><td><b>*_thigh (4 đùi)</b></td><td><code>1.190</code></td><td><code>[+0.00008, &plusmn;0.00067, -0.02898]</code></td><td><code>[0.00422, 0.00468, 0.00090]</code></td></tr>
+          <tr><td><b>*_calf (4 cẳng)</b></td><td><code>0.750</code></td><td><code>[+0.00033, &plusmn;0.02830, -0.18668]</code></td><td><code>[0.00393, 0.00390, 0.00066]</code></td></tr>
+          <tr><td><b>*_wheel (4 bánh)</b></td><td><code>0.370</code></td><td><code>[0.00000, &plusmn;0.00159, 0.00000]</code></td><td><code>[0.00076, 0.00138, 0.00076]</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div id="sec-rolling" class="card">
+      <h2>🔄 4. Động Học Tiếp Xúc Lăn Bánh Xe (Rolling Contact Kinematics)</h2>
+      <p>Khác biệt cốt lõi giữa chân điểm và bánh xe là tính chất <b>Non-holonomic</b> của tiếp xúc lăn:</p>
+      
+      <div class="math-block">
+        $$\text{Ràng buộc pháp tuyến giữ bánh trên mặt sàn: } n_i \cdot (J_{ci} \dot{\nu} + \text{bias}_i) = 0$$
+        $$\text{Ràng buộc lăn dọc không trượt: } t_i \cdot (J_{ci} \dot{\nu} + \text{bias}_i) = R_w \dot{q}_{\text{wheel},i}$$
+        $$\text{Lực ma sát trượt ngang phi tuyến: } f_{\text{lateral},i} = -\mu_k f_{\text{normal},i} \tanh\left(\frac{v_{\text{lat},i}}{v_s}\right)$$
+        $$\text{với } \mu_k \approx 0.8 \sim 1.0 \text{ (lốp cao su), và } v_s \approx 0.1\text{ m/s (vận tốc chuyển tiếp bão hòa)}$$
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div id="sec-skid" class="card">
+      <h2>🚗 5. Động Học Lái Trượt Vi Sai (Skid-Steering Kinematics)</h2>
+      <p>Để quay robot với vận tốc góc $\omega_z$ quanh trục đứng, hai bên mạn bánh xe trái và phải phải quay với vận tốc khác nhau:</p>
+      
+      <div class="math-block">
+        $$\text{Bề rộng vệt bánh xe: } W = 2 \times (y_{\text{hip}} + d_y + d_{yw}) = 2 \times (0.050 + 0.129 + 0.042) = 0.442\text{ m}$$
+        $$v_{\text{left}} = v_x - \omega_z \frac{W}{2}, \quad v_{\text{right}} = v_x + \omega_z \frac{W}{2}$$
+        $$\dot{q}_{\text{wheel,left}} = \frac{v_{\text{left}}}{R_w}, \quad \dot{q}_{\text{wheel,right}} = \frac{v_{\text{right}}}{R_w}$$
+        <br>
+        <b>Vòng lặp hiệu chỉnh PI vận tốc góc (Yaw Rate PI Loop):</b>
+        $$\omega_{\text{cmd}} = \omega_z + K_p (\omega_z - \omega_{\text{actual}}) + K_i \int (\omega_z - \omega_{\text{actual}}) dt$$
+      </div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div id="sec-banking" class="card">
+      <h2>🏎️ 6. Động Lực Học Tự Nghiêng Thân Vào Cua (Banking Dynamics)</h2>
+      <p>Khi robot di chuyển ở tốc độ cao $v_x = 2.0\text{ m/s}$ và bẻ lái $\omega_z = 1.5\text{ rad/s}$, gia tốc ly tâm $a_y = v_x \omega_z = 3.0\text{ m/s}^2$ sinh ra mô-men lật nguy hiểm.</p>
+      
+      <div class="math-block">
+        $$\tan(\phi_{\text{bank}}) = \frac{a_y}{g} = \frac{v_x \omega_z}{g} \implies \phi_{\text{bank}} = -\arctan\left(\frac{v_x \omega_z}{g}\right)$$
+        $$\text{Giới hạn góc nghiêng an toàn: } |\phi_{\text{bank}}| \le 18^\circ$$
+        <br>
+        $$\text{Điều chỉnh chiều dài chân vi sai: } \Delta z_{\text{left}} = +\frac{W}{2} \sin(\phi_{\text{bank}}), \quad \Delta z_{\text{right}} = -\frac{W}{2} \sin(\phi_{\text{bank}})$$
+      </div>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div id="sec-posture" class="card">
+      <h2>📈 7. Không Gian Tư Thế MQ1W (Posture Envelope)</h2>
+      <div class="media-grid">
+        <div class="media-card">
+          <img src="../../docs/posture_envelope/mq1w_roll_height.png" alt="MQ1W Roll vs Height Posture Envelope" />
+          <div class="media-caption">
+            <b>Hình 7.1:</b> Biểu đồ phong bì tư thế Nghiêng Ngang (Roll) vs Chiều Cao (Height) của MQ1W. Cho phép nghiêng thân $\pm 18^\circ$ ở chiều cao đứng từ $0.20\text{ m} \sim 0.38\text{ m}$.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div id="sec-urdf" class="card">
+      <h2>📂 8. Cấu Trúc Khai Báo URDF &amp; Khớp Bánh Xe Liên Tục</h2>
+      <p>Khác với 12 khớp chân có cữ chặn cơ học, 4 khớp bánh xe là dạng <code>continuous</code> (quay vô tận không giới hạn góc):</p>
+      <pre><code>joint_limits:
+  # 12 khớp hông, đùi, cẳng: Giới hạn cơ học như MQ1
+  FL_hip_joint:   {min: -0.6000, max: 0.6000}
+  FL_thigh_joint: {min: -1.5708, max: 3.4907}
+  FL_calf_joint:  {min: -2.5500, max: -0.8400}
+  # 4 khớp bánh xe: Continuous
+  *_wheel_joint:  {effort: 23.7, velocity: 30.1} # Không có min_position / max_position</code></pre>
+    </div>
+
+    <!-- SECTION 10: Interactive Simulator -->
+    <div id="sec-interactive" class="card">
+      <h2>🕹️ 10. Trình Mô Phỏng Động Học Bánh-Chân Live</h2>
+      <p>Điều chỉnh góc khớp chân và vận tốc bánh xe để quan sát cơ chế lăn bánh và góc nghiêng Banking:</p>
+
+      <div class="sim-container">
+        <div class="canvas-box">
+          <canvas id="mq1wCanvas" width="600" height="440" style="width:100%; height:100%;"></canvas>
+          <div style="position:absolute; top:10px; left:10px; font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--purple); background:rgba(0,0,0,0.6); padding:4px 8px; border-radius:4px;">
+            Mô Phỏng Chân &amp; Bánh Xe FL (MQ1W)
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-item">
+            <label><span>Góc Đùi &theta;2:</span> <span id="w-th2" style="color:var(--purple);">0.80 rad</span></label>
+            <input type="range" id="w-sl-th2" min="-1.57" max="3.49" step="0.01" value="0.80" oninput="runSimW()">
+          </div>
+          <div class="slider-item">
+            <label><span>Góc Cẳng &theta;3:</span> <span id="w-th3" style="color:var(--purple);">-1.50 rad</span></label>
+            <input type="range" id="w-sl-th3" min="-2.55" max="-0.84" step="0.01" value="-1.50" oninput="runSimW()">
+          </div>
+          <div class="slider-item">
+            <label><span>Vận tốc xe Vx:</span> <span id="w-vx" style="color:var(--cyan);">1.50 m/s</span></label>
+            <input type="range" id="w-sl-vx" min="0" max="2.4" step="0.1" value="1.5" oninput="runSimW()">
+          </div>
+          <div class="slider-item">
+            <label><span>Vận tốc quay Wz:</span> <span id="w-wz" style="color:var(--cyan);">0.80 rad/s</span></label>
+            <input type="range" id="w-sl-wz" min="-2.0" max="2.0" step="0.1" value="0.8" oninput="runSimW()">
+          </div>
+
+          <div class="readout-card">
+            <b style="color:var(--purple);">Động Học Bánh Xe FL:</b><br>
+            Tâm bánh Z: <span id="w-read-z" style="color:var(--text); font-weight:700;">-0.312</span> m<br>
+            Vận tốc quay bánh: <span id="w-read-om" style="color:var(--cyan); font-weight:700;">16.5</span> rad/s<br>
+            Góc nghiêng Banking: <span id="w-read-bank" style="color:var(--amber); font-weight:700;">-7.0°</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const target = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', target);
+      localStorage.setItem('theme', target);
+    }
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+
+    const L1 = 0.220;
+    const L2 = 0.220;
+    const Rw = 0.080;
+
+    let wheelAngle = 0;
+
+    function runSimW() {
+      const th2 = parseFloat(document.getElementById('w-sl-th2').value);
+      const th3 = parseFloat(document.getElementById('w-sl-th3').value);
+      const vx = parseFloat(document.getElementById('w-sl-vx').value);
+      const wz = parseFloat(document.getElementById('w-sl-wz').value);
+
+      document.getElementById('w-th2').innerText = th2.toFixed(2) + ' rad';
+      document.getElementById('w-th3').innerText = th3.toFixed(2) + ' rad';
+      document.getElementById('w-vx').innerText = vx.toFixed(2) + ' m/s';
+      document.getElementById('w-wz').innerText = wz.toFixed(2) + ' rad/s';
+
+      const z_wheel = -(L1 * Math.cos(th2) + L2 * Math.cos(th2 + th3));
+      const v_left = vx - wz * (0.442 / 2);
+      const omega_wheel = v_left / Rw;
+
+      const bank_rad = -Math.atan2(vx * wz, 9.81);
+      const bank_deg = bank_rad * 180 / Math.PI;
+
+      document.getElementById('w-read-z').innerText = z_wheel.toFixed(3);
+      document.getElementById('w-read-om').innerText = omega_wheel.toFixed(1);
+      document.getElementById('w-read-bank').innerText = bank_deg.toFixed(1) + '°';
+
+      drawMq1w(th2, th3);
+    }
+
+    function drawMq1w(th2, th3) {
+      const cvs = document.getElementById('mq1wCanvas');
+      const ctx = cvs.getContext('2d');
+      const w = cvs.width;
+      const h = cvs.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.strokeStyle = 'rgba(148, 163, 184, 0.1)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < w; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+      for (let y = 0; y < h; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+
+      const ox = w * 0.45;
+      const oy = h * 0.22;
+      const scale = 550;
+
+      const kx = ox - (L1 * Math.sin(th2)) * scale;
+      const ky = oy + (L1 * Math.cos(th2)) * scale;
+
+      const wx = kx - (L2 * Math.sin(th2 + th3)) * scale;
+      const wy = ky + (L2 * Math.cos(th2 + th3)) * scale;
+
+      // Thigh link
+      ctx.lineWidth = 10;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#a855f7';
+      ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(kx, ky); ctx.stroke();
+
+      // Calf link
+      ctx.strokeStyle = '#06b6d4';
+      ctx.beginPath(); ctx.moveTo(kx, ky); ctx.lineTo(wx, wy); ctx.stroke();
+
+      // Joints
+      ctx.fillStyle = '#f1f5f9';
+      ctx.beginPath(); ctx.arc(ox, oy, 8, 0, 2*Math.PI); ctx.fill();
+      ctx.beginPath(); ctx.arc(kx, ky, 7, 0, 2*Math.PI); ctx.fill();
+
+      // Wheel Rim & Tire
+      const rw_px = Rw * scale;
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = '#334155';
+      ctx.fillStyle = 'rgba(30, 41, 59, 0.8)';
+      ctx.beginPath(); ctx.arc(wx, wy, rw_px, 0, 2*Math.PI); ctx.fill(); ctx.stroke();
+
+      // Wheel Spokes
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#06b6d4';
+      wheelAngle += 0.05;
+      for (let i = 0; i < 4; i++) {
+        const ang = wheelAngle + i * Math.PI / 2;
+        ctx.beginPath();
+        ctx.moveTo(wx, wy);
+        ctx.lineTo(wx + rw_px * Math.cos(ang), wy + rw_px * Math.sin(ang));
+        ctx.stroke();
+      }
+
+      // Wheel Hub
+      ctx.fillStyle = '#a855f7';
+      ctx.beginPath(); ctx.arc(wx, wy, 8, 0, 2*Math.PI); ctx.fill();
+
+      // Ground plane
+      ctx.strokeStyle = 'rgba(16, 185, 129, 0.5)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath(); ctx.moveTo(20, wy + rw_px); ctx.lineTo(w - 20, wy + rw_px); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#10b981';
+      ctx.font = '12px JetBrains Mono';
+      ctx.fillText('Ground Contact Plane', 25, wy + rw_px - 8);
+    }
+
+    window.onload = function() {
+      runSimW();
+    };
+  </script>
+</body>
+</html>
