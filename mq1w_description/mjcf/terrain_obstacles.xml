@@ -1,0 +1,36 @@
+<mujoco model="mq1w obstacles scene">
+  <include file="mq1w.xml"/>
+  <statistic center="0 0 0.2" extent="1.5"/>
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="-130" elevation="-20" offwidth="1600" offheight="1200"/>
+  </visual>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <texture type="2d" name="terrain_tex" builtin="flat" rgb1="0.45 0.42 0.38" width="100" height="100"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    <material name="terrain_mat" texture="terrain_tex" reflectance="0.1"/>
+  </asset>
+  <worldbody>
+    <light pos="0 0 2.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+    <!-- Procedural obstacles -->
+    <geom name="obs_cyl_1" type="cylinder" size="0.121 0.057" pos="3.558 -1.710 0.057" material="terrain_mat"/>
+    <geom name="obs_box_2" type="box" size="0.156 0.173 0.081" pos="1.410 0.866 0.081" euler="0 0 -16.0" material="terrain_mat"/>
+    <geom name="obs_cyl_3" type="cylinder" size="0.188 0.055" pos="3.408 0.220 0.055" material="terrain_mat"/>
+    <geom name="obs_box_4" type="box" size="0.218 0.189 0.089" pos="4.238 -1.777 0.089" euler="0 0 27.4" material="terrain_mat"/>
+    <geom name="obs_box_5" type="box" size="0.219 0.216 0.065" pos="2.346 -1.466 0.065" euler="0 0 -27.4" material="terrain_mat"/>
+    <geom name="obs_cyl_6" type="cylinder" size="0.144 0.046" pos="2.838 -1.351 0.046" material="terrain_mat"/>
+    <geom name="obs_cyl_7" type="cylinder" size="0.206 0.080" pos="3.515 1.388 0.080" material="terrain_mat"/>
+    <geom name="obs_cyl_8" type="cylinder" size="0.228 0.109" pos="1.183 -0.980 0.109" material="terrain_mat"/>
+    <geom name="obs_cyl_9" type="cylinder" size="0.155 0.084" pos="4.466 -0.432 0.084" material="terrain_mat"/>
+    <geom name="obs_cyl_10" type="cylinder" size="0.203 0.089" pos="2.481 -1.046 0.089" material="terrain_mat"/>
+    <geom name="obs_box_11" type="box" size="0.226 0.397 0.051" pos="1.286 0.486 0.051" euler="0 0 8.4" material="terrain_mat"/>
+    <geom name="obs_box_12" type="box" size="0.156 0.229 0.056" pos="3.228 0.665 0.056" euler="0 0 -13.9" material="terrain_mat"/>
+    <geom name="obs_cyl_13" type="cylinder" size="0.175 0.055" pos="1.844 1.594 0.055" material="terrain_mat"/>
+    <geom name="obs_box_14" type="box" size="0.199 0.290 0.059" pos="4.539 0.514 0.059" euler="0 0 -14.2" material="terrain_mat"/>
+    <site name="goal" pos="5.5 0 0.1" size="0.2" rgba="0 1 0 0.5"/>
+  </worldbody>
+</mujoco>

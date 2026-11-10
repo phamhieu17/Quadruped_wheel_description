@@ -1,0 +1,117 @@
+<mujoco model="mq1w rough scene">
+  <include file="mq1w.xml"/>
+  <statistic center="0 0 0.2" extent="1.5"/>
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="-130" elevation="-20" offwidth="1600" offheight="1200"/>
+  </visual>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <texture type="2d" name="terrain_tex" builtin="flat" rgb1="0.45 0.42 0.38" width="100" height="100"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    <material name="terrain_mat" texture="terrain_tex" reflectance="0.1"/>
+  </asset>
+  <worldbody>
+    <light pos="0 0 2.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+    <!-- Rough / cobblestone terrain -->
+    <geom name="rough_0_0" type="box" size="0.165 0.165 0.0169" pos="0.975 -1.225 0.0169" euler="-1.8 -3.8 0" material="terrain_mat"/>
+    <geom name="rough_0_1" type="box" size="0.165 0.165 0.0075" pos="0.975 -0.875 0.0075" euler="1.4 1.9 0" material="terrain_mat"/>
+    <geom name="rough_0_2" type="box" size="0.165 0.165 0.0226" pos="0.975 -0.525 0.0226" euler="-0.6 -3.3 0" material="terrain_mat"/>
+    <geom name="rough_0_3" type="box" size="0.165 0.165 0.0032" pos="0.975 -0.175 0.0032" euler="0.0 -2.3 0" material="terrain_mat"/>
+    <geom name="rough_0_4" type="box" size="0.165 0.165 0.0031" pos="0.975 0.175 0.0031" euler="1.2 -2.4 0" material="terrain_mat"/>
+    <geom name="rough_0_5" type="box" size="0.165 0.165 0.0148" pos="0.975 0.525 0.0148" euler="0.7 -2.2 0" material="terrain_mat"/>
+    <geom name="rough_0_6" type="box" size="0.165 0.165 0.0207" pos="0.975 0.875 0.0207" euler="2.4 -3.9 0" material="terrain_mat"/>
+    <geom name="rough_0_7" type="box" size="0.165 0.165 0.0182" pos="0.975 1.225 0.0182" euler="-2.8 -1.3 0" material="terrain_mat"/>
+    <geom name="rough_1_0" type="box" size="0.165 0.165 0.0240" pos="1.325 -1.225 0.0240" euler="-3.3 -1.3 0" material="terrain_mat"/>
+    <geom name="rough_1_1" type="box" size="0.165 0.165 0.0047" pos="1.325 -0.875 0.0047" euler="0.8 2.8 0" material="terrain_mat"/>
+    <geom name="rough_1_2" type="box" size="0.165 0.165 0.0207" pos="1.325 -0.525 0.0207" euler="0.3 1.8 0" material="terrain_mat"/>
+    <geom name="rough_1_3" type="box" size="0.165 0.165 0.0244" pos="1.325 -0.175 0.0244" euler="0.4 -1.0 0" material="terrain_mat"/>
+    <geom name="rough_1_4" type="box" size="0.165 0.165 0.0212" pos="1.325 0.175 0.0212" euler="2.9 0.9 0" material="terrain_mat"/>
+    <geom name="rough_1_5" type="box" size="0.165 0.165 0.0155" pos="1.325 0.525 0.0155" euler="-3.6 1.6 0" material="terrain_mat"/>
+    <geom name="rough_1_6" type="box" size="0.165 0.165 0.0076" pos="1.325 0.875 0.0076" euler="-3.4 -1.7 0" material="terrain_mat"/>
+    <geom name="rough_1_7" type="box" size="0.165 0.165 0.0077" pos="1.325 1.225 0.0077" euler="-1.8 -3.2 0" material="terrain_mat"/>
+    <geom name="rough_2_0" type="box" size="0.165 0.165 0.0168" pos="1.675 -1.225 0.0168" euler="-1.0 -1.1 0" material="terrain_mat"/>
+    <geom name="rough_2_1" type="box" size="0.165 0.165 0.0072" pos="1.675 -0.875 0.0072" euler="3.5 -1.9 0" material="terrain_mat"/>
+    <geom name="rough_2_2" type="box" size="0.165 0.165 0.0171" pos="1.675 -0.525 0.0171" euler="-2.6 0.9 0" material="terrain_mat"/>
+    <geom name="rough_2_3" type="box" size="0.165 0.165 0.0189" pos="1.675 -0.175 0.0189" euler="-1.0 -2.7 0" material="terrain_mat"/>
+    <geom name="rough_2_4" type="box" size="0.165 0.165 0.0248" pos="1.675 0.175 0.0248" euler="0.5 1.1 0" material="terrain_mat"/>
+    <geom name="rough_2_5" type="box" size="0.165 0.165 0.0179" pos="1.675 0.525 0.0179" euler="2.2 2.7 0" material="terrain_mat"/>
+    <geom name="rough_2_6" type="box" size="0.165 0.165 0.0077" pos="1.675 0.875 0.0077" euler="-1.5 -3.7 0" material="terrain_mat"/>
+    <geom name="rough_2_7" type="box" size="0.165 0.165 0.0085" pos="1.675 1.225 0.0085" euler="3.5 -2.3 0" material="terrain_mat"/>
+    <geom name="rough_3_0" type="box" size="0.165 0.165 0.0222" pos="2.025 -1.225 0.0222" euler="1.2 -1.5 0" material="terrain_mat"/>
+    <geom name="rough_3_1" type="box" size="0.165 0.165 0.0114" pos="2.025 -0.875 0.0114" euler="-0.3 3.3 0" material="terrain_mat"/>
+    <geom name="rough_3_2" type="box" size="0.165 0.165 0.0085" pos="2.025 -0.525 0.0085" euler="0.5 -2.0 0" material="terrain_mat"/>
+    <geom name="rough_3_3" type="box" size="0.165 0.165 0.0084" pos="2.025 -0.175 0.0084" euler="3.2 0.7 0" material="terrain_mat"/>
+    <geom name="rough_3_4" type="box" size="0.165 0.165 0.0115" pos="2.025 0.175 0.0115" euler="4.0 -2.2 0" material="terrain_mat"/>
+    <geom name="rough_3_5" type="box" size="0.165 0.165 0.0140" pos="2.025 0.525 0.0140" euler="-3.6 -3.3 0" material="terrain_mat"/>
+    <geom name="rough_3_6" type="box" size="0.165 0.165 0.0050" pos="2.025 0.875 0.0050" euler="2.3 1.0 0" material="terrain_mat"/>
+    <geom name="rough_3_7" type="box" size="0.165 0.165 0.0120" pos="2.025 1.225 0.0120" euler="-0.9 -3.5 0" material="terrain_mat"/>
+    <geom name="rough_4_0" type="box" size="0.165 0.165 0.0249" pos="2.375 -1.225 0.0249" euler="3.8 0.2 0" material="terrain_mat"/>
+    <geom name="rough_4_1" type="box" size="0.165 0.165 0.0219" pos="2.375 -0.875 0.0219" euler="1.8 -3.9 0" material="terrain_mat"/>
+    <geom name="rough_4_2" type="box" size="0.165 0.165 0.0178" pos="2.375 -0.525 0.0178" euler="-1.9 0.3 0" material="terrain_mat"/>
+    <geom name="rough_4_3" type="box" size="0.165 0.165 0.0169" pos="2.375 -0.175 0.0169" euler="-0.5 -3.1 0" material="terrain_mat"/>
+    <geom name="rough_4_4" type="box" size="0.165 0.165 0.0127" pos="2.375 0.175 0.0127" euler="3.0 3.6 0" material="terrain_mat"/>
+    <geom name="rough_4_5" type="box" size="0.165 0.165 0.0084" pos="2.375 0.525 0.0084" euler="-2.6 0.0 0" material="terrain_mat"/>
+    <geom name="rough_4_6" type="box" size="0.165 0.165 0.0230" pos="2.375 0.875 0.0230" euler="-1.6 3.0 0" material="terrain_mat"/>
+    <geom name="rough_4_7" type="box" size="0.165 0.165 0.0169" pos="2.375 1.225 0.0169" euler="-2.8 0.9 0" material="terrain_mat"/>
+    <geom name="rough_5_0" type="box" size="0.165 0.165 0.0197" pos="2.725 -1.225 0.0197" euler="2.2 0.3 0" material="terrain_mat"/>
+    <geom name="rough_5_1" type="box" size="0.165 0.165 0.0144" pos="2.725 -0.875 0.0144" euler="-1.4 -4.0 0" material="terrain_mat"/>
+    <geom name="rough_5_2" type="box" size="0.165 0.165 0.0029" pos="2.725 -0.525 0.0029" euler="3.0 3.4 0" material="terrain_mat"/>
+    <geom name="rough_5_3" type="box" size="0.165 0.165 0.0212" pos="2.725 -0.175 0.0212" euler="-3.5 -1.5 0" material="terrain_mat"/>
+    <geom name="rough_5_4" type="box" size="0.165 0.165 0.0223" pos="2.725 0.175 0.0223" euler="-3.3 3.6 0" material="terrain_mat"/>
+    <geom name="rough_5_5" type="box" size="0.165 0.165 0.0134" pos="2.725 0.525 0.0134" euler="2.1 -3.4 0" material="terrain_mat"/>
+    <geom name="rough_5_6" type="box" size="0.165 0.165 0.0197" pos="2.725 0.875 0.0197" euler="-0.2 -3.0 0" material="terrain_mat"/>
+    <geom name="rough_5_7" type="box" size="0.165 0.165 0.0149" pos="2.725 1.225 0.0149" euler="3.0 -1.9 0" material="terrain_mat"/>
+    <geom name="rough_6_0" type="box" size="0.165 0.165 0.0120" pos="3.075 -1.225 0.0120" euler="0.3 -2.3 0" material="terrain_mat"/>
+    <geom name="rough_6_1" type="box" size="0.165 0.165 0.0189" pos="3.075 -0.875 0.0189" euler="-1.5 -2.4 0" material="terrain_mat"/>
+    <geom name="rough_6_2" type="box" size="0.165 0.165 0.0249" pos="3.075 -0.525 0.0249" euler="-0.5 1.2 0" material="terrain_mat"/>
+    <geom name="rough_6_3" type="box" size="0.165 0.165 0.0141" pos="3.075 -0.175 0.0141" euler="-2.2 -3.0 0" material="terrain_mat"/>
+    <geom name="rough_6_4" type="box" size="0.165 0.165 0.0101" pos="3.075 0.175 0.0101" euler="-2.2 0.7 0" material="terrain_mat"/>
+    <geom name="rough_6_5" type="box" size="0.165 0.165 0.0075" pos="3.075 0.525 0.0075" euler="1.0 -3.4 0" material="terrain_mat"/>
+    <geom name="rough_6_6" type="box" size="0.165 0.165 0.0077" pos="3.075 0.875 0.0077" euler="2.9 3.2 0" material="terrain_mat"/>
+    <geom name="rough_6_7" type="box" size="0.165 0.165 0.0041" pos="3.075 1.225 0.0041" euler="1.4 -2.1 0" material="terrain_mat"/>
+    <geom name="rough_7_0" type="box" size="0.165 0.165 0.0073" pos="3.425 -1.225 0.0073" euler="3.5 -2.9 0" material="terrain_mat"/>
+    <geom name="rough_7_1" type="box" size="0.165 0.165 0.0153" pos="3.425 -0.875 0.0153" euler="2.3 -0.2 0" material="terrain_mat"/>
+    <geom name="rough_7_2" type="box" size="0.165 0.165 0.0207" pos="3.425 -0.525 0.0207" euler="-3.2 -2.5 0" material="terrain_mat"/>
+    <geom name="rough_7_3" type="box" size="0.165 0.165 0.0122" pos="3.425 -0.175 0.0122" euler="-0.3 -0.6 0" material="terrain_mat"/>
+    <geom name="rough_7_4" type="box" size="0.165 0.165 0.0189" pos="3.425 0.175 0.0189" euler="3.9 1.4 0" material="terrain_mat"/>
+    <geom name="rough_7_5" type="box" size="0.165 0.165 0.0047" pos="3.425 0.525 0.0047" euler="-1.3 -0.8 0" material="terrain_mat"/>
+    <geom name="rough_7_6" type="box" size="0.165 0.165 0.0219" pos="3.425 0.875 0.0219" euler="-2.5 -2.0 0" material="terrain_mat"/>
+    <geom name="rough_7_7" type="box" size="0.165 0.165 0.0126" pos="3.425 1.225 0.0126" euler="-1.8 -0.6 0" material="terrain_mat"/>
+    <geom name="rough_8_0" type="box" size="0.165 0.165 0.0081" pos="3.775 -1.225 0.0081" euler="-0.5 3.4 0" material="terrain_mat"/>
+    <geom name="rough_8_1" type="box" size="0.165 0.165 0.0219" pos="3.775 -0.875 0.0219" euler="-3.6 0.4 0" material="terrain_mat"/>
+    <geom name="rough_8_2" type="box" size="0.165 0.165 0.0250" pos="3.775 -0.525 0.0250" euler="3.8 2.7 0" material="terrain_mat"/>
+    <geom name="rough_8_3" type="box" size="0.165 0.165 0.0233" pos="3.775 -0.175 0.0233" euler="-2.7 2.8 0" material="terrain_mat"/>
+    <geom name="rough_8_4" type="box" size="0.165 0.165 0.0134" pos="3.775 0.175 0.0134" euler="-0.8 -2.3 0" material="terrain_mat"/>
+    <geom name="rough_8_5" type="box" size="0.165 0.165 0.0038" pos="3.775 0.525 0.0038" euler="3.9 -1.0 0" material="terrain_mat"/>
+    <geom name="rough_8_6" type="box" size="0.165 0.165 0.0085" pos="3.775 0.875 0.0085" euler="-0.4 2.3 0" material="terrain_mat"/>
+    <geom name="rough_8_7" type="box" size="0.165 0.165 0.0120" pos="3.775 1.225 0.0120" euler="4.0 3.7 0" material="terrain_mat"/>
+    <geom name="rough_9_0" type="box" size="0.165 0.165 0.0150" pos="4.125 -1.225 0.0150" euler="-2.8 1.7 0" material="terrain_mat"/>
+    <geom name="rough_9_1" type="box" size="0.165 0.165 0.0092" pos="4.125 -0.875 0.0092" euler="0.6 3.7 0" material="terrain_mat"/>
+    <geom name="rough_9_2" type="box" size="0.165 0.165 0.0147" pos="4.125 -0.525 0.0147" euler="-3.5 2.0 0" material="terrain_mat"/>
+    <geom name="rough_9_3" type="box" size="0.165 0.165 0.0156" pos="4.125 -0.175 0.0156" euler="2.8 0.0 0" material="terrain_mat"/>
+    <geom name="rough_9_4" type="box" size="0.165 0.165 0.0060" pos="4.125 0.175 0.0060" euler="-3.4 3.7 0" material="terrain_mat"/>
+    <geom name="rough_9_5" type="box" size="0.165 0.165 0.0067" pos="4.125 0.525 0.0067" euler="1.4 0.8 0" material="terrain_mat"/>
+    <geom name="rough_9_6" type="box" size="0.165 0.165 0.0078" pos="4.125 0.875 0.0078" euler="3.1 -3.0 0" material="terrain_mat"/>
+    <geom name="rough_9_7" type="box" size="0.165 0.165 0.0080" pos="4.125 1.225 0.0080" euler="1.0 0.8 0" material="terrain_mat"/>
+    <geom name="rough_10_0" type="box" size="0.165 0.165 0.0119" pos="4.475 -1.225 0.0119" euler="0.2 0.7 0" material="terrain_mat"/>
+    <geom name="rough_10_1" type="box" size="0.165 0.165 0.0235" pos="4.475 -0.875 0.0235" euler="1.7 -2.4 0" material="terrain_mat"/>
+    <geom name="rough_10_2" type="box" size="0.165 0.165 0.0079" pos="4.475 -0.525 0.0079" euler="1.4 -0.8 0" material="terrain_mat"/>
+    <geom name="rough_10_3" type="box" size="0.165 0.165 0.0092" pos="4.475 -0.175 0.0092" euler="2.0 -1.5 0" material="terrain_mat"/>
+    <geom name="rough_10_4" type="box" size="0.165 0.165 0.0041" pos="4.475 0.175 0.0041" euler="4.0 -0.3 0" material="terrain_mat"/>
+    <geom name="rough_10_5" type="box" size="0.165 0.165 0.0249" pos="4.475 0.525 0.0249" euler="-2.3 -3.4 0" material="terrain_mat"/>
+    <geom name="rough_10_6" type="box" size="0.165 0.165 0.0085" pos="4.475 0.875 0.0085" euler="3.0 3.5 0" material="terrain_mat"/>
+    <geom name="rough_10_7" type="box" size="0.165 0.165 0.0223" pos="4.475 1.225 0.0223" euler="-2.7 -1.0 0" material="terrain_mat"/>
+    <geom name="rough_11_0" type="box" size="0.165 0.165 0.0213" pos="4.825 -1.225 0.0213" euler="0.9 1.6 0" material="terrain_mat"/>
+    <geom name="rough_11_1" type="box" size="0.165 0.165 0.0247" pos="4.825 -0.875 0.0247" euler="-3.9 1.2 0" material="terrain_mat"/>
+    <geom name="rough_11_2" type="box" size="0.165 0.165 0.0209" pos="4.825 -0.525 0.0209" euler="1.3 -1.6 0" material="terrain_mat"/>
+    <geom name="rough_11_3" type="box" size="0.165 0.165 0.0236" pos="4.825 -0.175 0.0236" euler="-3.1 -2.9 0" material="terrain_mat"/>
+    <geom name="rough_11_4" type="box" size="0.165 0.165 0.0049" pos="4.825 0.175 0.0049" euler="-1.8 0.4 0" material="terrain_mat"/>
+    <geom name="rough_11_5" type="box" size="0.165 0.165 0.0161" pos="4.825 0.525 0.0161" euler="-2.4 1.7 0" material="terrain_mat"/>
+    <geom name="rough_11_6" type="box" size="0.165 0.165 0.0168" pos="4.825 0.875 0.0168" euler="-0.1 -1.9 0" material="terrain_mat"/>
+    <geom name="rough_11_7" type="box" size="0.165 0.165 0.0229" pos="4.825 1.225 0.0229" euler="-3.3 2.8 0" material="terrain_mat"/>
+  </worldbody>
+</mujoco>

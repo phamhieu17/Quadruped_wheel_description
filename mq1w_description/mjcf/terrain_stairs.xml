@@ -1,0 +1,30 @@
+<mujoco model="mq1w stairs_6cm scene">
+  <include file="mq1w.xml"/>
+  <statistic center="0 0 0.2" extent="1.5"/>
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="-130" elevation="-20" offwidth="1600" offheight="1200"/>
+  </visual>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <texture type="2d" name="terrain_tex" builtin="flat" rgb1="0.45 0.42 0.38" width="100" height="100"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    <material name="terrain_mat" texture="terrain_tex" reflectance="0.1"/>
+  </asset>
+  <worldbody>
+    <light pos="0 0 2.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+    <!-- Ascending staircase -->
+    <geom name="step_1" type="box" size="0.1400 0.8000 0.0300" pos="0.9400 0 0.0300" material="terrain_mat"/>
+    <geom name="step_2" type="box" size="0.1400 0.8000 0.0600" pos="1.2200 0 0.0600" material="terrain_mat"/>
+    <geom name="step_3" type="box" size="0.1400 0.8000 0.0900" pos="1.5000 0 0.0900" material="terrain_mat"/>
+    <geom name="step_4" type="box" size="0.1400 0.8000 0.1200" pos="1.7800 0 0.1200" material="terrain_mat"/>
+    <geom name="step_5" type="box" size="0.1400 0.8000 0.1500" pos="2.0600 0 0.1500" material="terrain_mat"/>
+    <geom name="step_6" type="box" size="0.1400 0.8000 0.1800" pos="2.3400 0 0.1800" material="terrain_mat"/>
+    <geom name="step_7" type="box" size="0.1400 0.8000 0.2100" pos="2.6200 0 0.2100" material="terrain_mat"/>
+    <geom name="step_8" type="box" size="0.1400 0.8000 0.2400" pos="2.9000 0 0.2400" material="terrain_mat"/>
+    <geom name="stairs_top" type="box" size="0.7500 0.8000 0.2400" pos="3.7900 0 0.2400" material="terrain_mat"/>
+  </worldbody>
+</mujoco>
